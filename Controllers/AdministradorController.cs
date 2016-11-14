@@ -7,7 +7,6 @@ using sirlLab.Models;
 using Oracle.ManagedDataAccess.Client;
 using System.Configuration;
 
-
 namespace sirlLab.Controllers
 {
     public class AdministradorController : Controller
