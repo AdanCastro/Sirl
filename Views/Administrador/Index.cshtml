@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "SIRL";
+}
+
+@Html.Bootstrap().PageHeader("Bienvenido")
+
+@using(var tabs = Html.Bootstrap().Tabs().Begin())
+{
+    @tabs.Tab("Index", "Index", "Administrador").SetActive()
+    @tabs.Tab("Usuarios", "Usuarios", "Administrador")
+    @tabs.Tab("Laboratorios", "Laboratorios", "Administrador")
+}
+
+
+@using (var row = Html.Bootstrap().GridRow().Begin())
+{
+    @row.GridColumn(4).AddContent("")
+    @row.GridColumn(4).AddContent(@Html.Bootstrap().Image("/Content/Images/LogoSIRL.png", "SIRL").SetResponsive())
+    @row.GridColumn(4).AddContent("")
+}

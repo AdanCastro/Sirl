@@ -1,0 +1,117 @@
+﻿@model IEnumerable<sirlLab.Models.Usuarios> 
+
+
+@{
+    ViewBag.Title = "SIRL";
+}
+
+@Html.Bootstrap().PageHeader("Usuarios")
+
+@using(var tabs = Html.Bootstrap().Tabs().Begin())
+{
+    @tabs.Tab("Index", "Index", "Administrador")
+    @tabs.Tab("Usuarios", "Usuarios", "Administrador").SetActive()
+    @tabs.Tab("Laboratorios", "Laboratorios", "Administrador")
+}
+
+<div class="container">
+    <table id="myTable" class="table table-bordered">
+                    <tr>
+                    <td></td>
+                    <td >@Html.Label("ID")</td>
+                     <td >@Html.Label("Contraseña")</td>
+                     <td >@Html.Label("Nombre")</td>
+                     <td >@Html.Label("Correo")</td>
+                     <td >@Html.Label("Tipo de Cuenta")</td>
+                     <td >@Html.Label("Área")</td>
+                     <td colspan="2">@Html.Label("Opciones")</td>      
+                    </tr>
+        
+                    @foreach ( var item in Model)
+                    {
+                        using (Html.BeginForm("Usuarios", "Administrador", FormMethod.Post))
+                        {
+                            ViewBag.admin = "Admin";
+                            ViewBag.tec = "Tecnico";
+                            ViewBag.maestro = "Maestro";
+                    <tr>
+                        <td></td>
+                        <td>@Html.TextBox("txtID",item.idUsuario,new {@class = "form-control"})</td>
+                        <td>@Html.TextBox("txtPass",item.password,new {@class = "form-control"})</td>
+                        <td>@Html.TextBox("txtNombre",item.nombre,new {@class = "form-control"})</td>  
+                        <td>@Html.TextBox("txtCorreo",item.correo,new {@class = "form-control"})</td>
+                         
+                        <td>
+                            @if(item.tipo == 0)
+                            {
+                                
+                                 @Html.DropDownList("dplTipo", new List<SelectListItem>
+                            {
+                                new SelectListItem {Selected = true,Text=ViewBag.admin, Value="0"},
+                                new SelectListItem {Text=ViewBag.tec, Value="1"},
+                                new SelectListItem {Text=ViewBag.maestro, Value="2"}
+                            }
+                            ,new {@class = "form-control"})
+                            }
+                             @if(item.tipo == 1)
+                            {
+                                
+                                 @Html.DropDownList("dplTipo", new List<SelectListItem>
+                            {
+                                new SelectListItem {Text=ViewBag.admin, Value="0"},
+                                new SelectListItem {Selected = true,Text=ViewBag.tec, Value="1"},
+                                new SelectListItem {Text=ViewBag.maestro, Value="2"}
+                            }
+                            ,new {@class = "form-control"})
+                            }
+                             @if(item.tipo == 2)
+                            {
+                                 @Html.DropDownList("dplTipo", new List<SelectListItem>
+                            {
+                                new SelectListItem {Text=ViewBag.admin, Value="0"},
+                                new SelectListItem {Text=ViewBag.tec, Value="1"},
+                                new SelectListItem {Selected = true,Text=ViewBag.maestro, Value="2"}
+                            }
+                            ,new {@class = "form-control"})
+                             }
+                        </td>
+                        <td>@Html.TextBox("txtArea",item.area,new {@class = "form-control"})</td>   
+                       
+
+                        @*<td>@Html.ActionLink("Editar", "Edit", new { id = item.idUsuario }, new { @class = "btn btn-success" })</td>*@
+                        <td><button onclick="MyCreateFunction()" type="submit" class="btn btn-danger center-block" name="operacion" value="PUT"><i class="glyphicon glyphicon-remove-circle"></i> Editar</button></td>
+                        @using (Html.BeginForm("Usuarios", "Administrador", FormMethod.Post))
+                        {
+                        <td><button onclick="MyCreateFunction()" type="submit" class="btn btn-danger center-block" name="operacion" value="DELETE"><i class="glyphicon glyphicon-remove-circle"></i> Eliminar</button></td>
+                        }
+                    </tr>
+                    }
+                    }
+        @using (Html.BeginForm("Usuarios", "Administrador", FormMethod.Post))
+        {
+        <tr>
+            <td></td>
+                        <td>@Html.TextBox("txtID","",new {@class = "form-control"})</td>
+                        <td>@Html.TextBox("txtPass","",new {@class = "form-control"})</td>
+                        <td>@Html.TextBox("txtNombre","",new {@class = "form-control"})</td>  
+                        <td>@Html.TextBox("txtCorreo","",new {@class = "form-control"})</td>
+                        <td>@Html.DropDownList("dplTipo", new List<SelectListItem>
+                            {
+                                new SelectListItem {Text="Administración", Value="0"},
+                                new SelectListItem {Text="Técnico", Value="1"},
+                                new SelectListItem {Text="Maestro", Value="2"}
+                            }
+                            ,new {@class = "form-control"})
+
+                        </td>
+                        @*<td>@Html.TextBox("txtTipo","",new {@class = "form-control"})</td>    *@
+                        <td>@Html.TextBox("txtArea","",new {@class = "form-control"})</td>   
+                        <td colspan="2"><button onclick="MyCreateFunction()" type="submit" class="btn btn-danger center-block" name="operacion" value="POST"><i class="glyphicon glyphicon-upload"></i> Agregar registro</button></td>              
+                    </tr>
+        }
+
+            </table>
+
+</div>
+
+

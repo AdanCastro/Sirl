@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "SIRL";
+}
+
+@Html.Bootstrap().PageHeader("Iniciar sesión")
+
+@using (var row = Html.Bootstrap().GridRow().Begin())
+{
+    @row.GridColumn(4).AddContent("")
+    using (var data = row.GridColumn(4).AddContent("").Begin()) {
+        @Html.Bootstrap().Image("/Content/Images/LogoSIRL.png", "SIRL").SetResponsive()
+        using (var form = Html.Bootstrap().Form().Begin())
+        {
+            @form.Input("txtName").SetPlaceholder("Nombre de usuario")
+            @form.Input("txtPassword", inputType: FormInputType.Password).SetPlaceholder("Contraseña")
+            @form.Submit("Iniciar sesión", null, FormMethod.Post)
+        }
+    }
+    @row.GridColumn(4).AddContent("")
+}

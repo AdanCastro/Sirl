@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html>
+<head>    
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/css")
+    @Scripts.Render("~/js")
+</head>
+<body>
+    @using (var navbar = Html.Bootstrap().Navbar().SetInverse().SetId("LoginNav").Begin())
+    {
+        using (var navbarHeader = navbar.NavbarHeader().Begin())
+        {
+            @navbarHeader.Brand("SIRL")        
+            @navbarHeader.NavbarToggle()
+        }
+        using (var navbarCollapse = navbar.NavbarCollapse().Begin())
+        {                   
+            using (navbarCollapse.NavbarText().SetRight().Begin())
+            {
+                <text>Bienvenido @Html.Bootstrap().Link("Administrador")</text>
+            }
+ 
+            using (var nav = navbarCollapse.NavbarNav().SetRight().Begin())
+            {
+                @navbarCollapse.NavbarButton("Salir").SetState(ButtonState.Warning)
+            }
+        }
+    }
+
+    @RenderBody()
+
+    @using (var panel = Html.Bootstrap().PanelFooter().Begin())
+    {
+        using (var footer = Html.Bootstrap().Span().SetBackgroundState(BackgroundState.Success).SetCenterBlock().Begin())
+        {            
+            @Html.Bootstrap().Paragraph("TICSI4A - Todos los derechos reservados.").SetAlignment(TextAlignment.Center)
+        }        
+    }
+
+</body>
+</html>

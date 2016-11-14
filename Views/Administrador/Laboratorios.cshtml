@@ -1,0 +1,53 @@
+﻿@{
+    ViewBag.Title = "SIRL";
+}
+
+@Html.Bootstrap().PageHeader("Administrar Laboratorios")
+
+@using(var tabs = Html.Bootstrap().Tabs().Begin())
+{
+    @tabs.Tab("Index", "Index", "Administrador")
+    @tabs.Tab("Usuarios", "Usuarios", "Administrador")
+    @tabs.Tab("Laboratorios", "Laboratorios", "Administrador").SetActive()
+}
+
+@using (var table = Html.Bootstrap().Table().SetStyle(TableStyle.Hover).Begin())
+{
+    using (table.TableHeaderRow().Begin())
+    {
+        @table.TableData("#")
+        @table.TableData("Nombre")
+        @table.TableData("Edificio")
+        @table.TableData("Área")
+        @table.TableData(null).ColSpan(2)
+    }
+
+    using (table.TableDataRow().Begin())
+    {
+        using (var form = Html.Bootstrap().Form().Begin())
+        {
+            @table.TableData("1")
+            @table.TableData("CISCO")
+            @table.TableData("2")
+            @table.TableData("TIC")
+            @table.TableData(form.Submit("Editar", null, "Editar").SetState(ButtonState.Info).SetBlock())   
+        }
+
+        using (var form = Html.Bootstrap().Form().Begin())
+        {
+            @table.TableData(form.Submit("Eliminar", null, "Eliminar").SetState(ButtonState.Danger).SetBlock())            
+        }
+    }
+
+    using (var form = Html.Bootstrap().Form("Laboratorios", "Administrador", FormMethod.Post).Begin())
+    {            
+        using (table.TableDataRow().Begin())
+        {
+            @table.TableData(null)
+            @table.TableData(@form.Input("txtNombre"))
+            @table.TableData(@form.Select("selEdif", null, "1", "2", "3", "4"))
+            @table.TableData(@form.Select("selArea", null, "TIC", "MKT", "SPA"))
+            @table.TableData(form.Submit("Agregar", null, "Agregar").SetState(ButtonState.Primary).SetBlock()).ColSpan(2)    
+        }
+    }    
+}
